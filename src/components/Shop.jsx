@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FaBagShopping } from "react-icons/fa6";
 
 const products = [
@@ -93,7 +93,21 @@ const products = [
   },
 ];
 
-function Shop({ handleNotAvailable, scrollRef, scroll }) {
+function Shop({ handleNotAvailable }) {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo =
+        direction === "left"
+          ? scrollLeft - clientWidth
+          : scrollLeft + clientWidth;
+
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <section

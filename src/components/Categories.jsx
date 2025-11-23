@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const allCategories = [
   {
@@ -58,7 +58,21 @@ const allCategories = [
   },
 ];
 
-function Catagories({ scrollRef, scroll }) {
+function Catagories() {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo =
+        direction === "left"
+          ? scrollLeft - clientWidth
+          : scrollLeft + clientWidth;
+
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <section className="max-w-[75rem] mx-auto p-4 -mt-32 space-y-2 lg:space-y-4">

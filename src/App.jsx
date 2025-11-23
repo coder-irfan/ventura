@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero";
 import Categories from "./components/Categories";
@@ -17,38 +17,16 @@ function App() {
     toast.error("فعلا غیر فعال میباشد.");
   };
 
-  const scrollRef = useRef(null);
-
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo =
-        direction === "left"
-          ? scrollLeft - clientWidth
-          : scrollLeft + clientWidth;
-
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
-    }
-  };
-
   return (
     <>
       <div className="bg-colors-cloud">
         <Header handleNotAvailable={handleNotAvailable} />
         <Hero />
       </div>
-      <Categories scroll={scroll} scrollRef={scrollRef} />
-      <Shop
-        scroll={scroll}
-        scrollRef={scrollRef}
-        handleNotAvailable={handleNotAvailable}
-      />
+      <Categories />
+      <Shop handleNotAvailable={handleNotAvailable} />
       <About />
-      <Products
-        scroll={scroll}
-        scrollRef={scrollRef}
-        handleNotAvailable={handleNotAvailable}
-      />
+      <Products handleNotAvailable={handleNotAvailable} />
       <Brands />
       <More handleNotAvailable={handleNotAvailable} />
       <Footer handleNotAvailable={handleNotAvailable} />
